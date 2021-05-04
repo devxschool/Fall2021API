@@ -90,7 +90,6 @@ public class RestAssuredTests {
         Assert.assertEquals(1, convertedToJavaObjectResponseBody.getFoodCached().size());
         Assert.assertEquals("Lagman", convertedToJavaObjectResponseBody.getFoodCached().get(0).getDescription());
         Assert.assertEquals(15.0,convertedToJavaObjectResponseBody.getFoodCached().get(0).getPrice(), 0);
-
     }
 
 
