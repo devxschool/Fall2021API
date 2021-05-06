@@ -1,0 +1,15 @@
+domains/Food.class
+runners/RegressionRunner.class
+practice/RestAssuredDemo.class
+steps/FoodSteps.class
+utils/RestHttpRequest.class
+db_utils/ResultSetHandler.class
+steps/Hooks.class
+utils/ConfigReader.class
+domains/CommitToDbResponse.class
+domains/AddNewFoodToCacheResponseBody.class
+domains/ResponseErrorMessageBody.class
+steps/DbSteps.class
+practice/RestAssuredTests.class
+db_utils/DBUtils.class
+utils/FoodDeliveryEndpoints.class

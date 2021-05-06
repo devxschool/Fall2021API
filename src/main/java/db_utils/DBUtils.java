@@ -95,6 +95,7 @@ public class DBUtils {
     }
 
     public static void close() {
+        System.out.println("Closing DB");
         try {
             if (statement != null) statement.close();
             if (connection != null) connection.close();

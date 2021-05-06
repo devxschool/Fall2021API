@@ -1,10 +1,11 @@
 package steps;
 
 import com.google.gson.Gson;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import domains.AddNewFoodToCacheResponseBody;
+import domains.CommitToDbResponse;
 import domains.Food;
 import domains.ResponseErrorMessageBody;
 import io.restassured.response.Response;
@@ -21,15 +22,6 @@ public class FoodSteps {
     private Response response;
     Gson gson = new Gson();
 
-    @Before
-    public void setup(){
-        RestHttpRequest.addHeaders();
-        response = RestHttpRequest.requestSpecification
-        .when()
-        .request("POST", CLEAR_CACHE.getEndpoint());
-
-        Assert.assertEquals(200, response.getStatusCode());
-    }
 
 
 
@@ -76,5 +68,23 @@ public class FoodSteps {
         ResponseErrorMessageBody actualResponse = gson.fromJson(actualJson, ResponseErrorMessageBody.class);
         Assert.assertEquals("Create food with missing field error message mismatch",
                 expectedErrorMessage, actualResponse.getErrorMessage());
+    }
+
+
+    @When("^users commits the cache to db$")
+    public void users_commits_the_cache_to_db()  {
+        response =  RestHttpRequest.requestSpecification
+                .when()
+                .request("POST",COMMIT_TO_DB.getEndpoint());
+
+    }
+
+    @Then("^app should send the following response$")
+    public void app_should_send_the_following_response(List<CommitToDbResponse> expectedPayload){
+        String actualJson = response.getBody().asPrettyString();
+        CommitToDbResponse actualPayload = gson.fromJson(actualJson,CommitToDbResponse.class);
+        Assert.assertEquals("Commit to DB invalid number of food saved",expectedPayload.get(0).getNumberOfFoodsSaved(),
+                actualPayload.getNumberOfFoodsSaved());
+        Assert.assertEquals("Commit to DB invalid message",expectedPayload.get(0).getMessage(),actualPayload.getMessage());
     }
 }
