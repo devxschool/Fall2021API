@@ -36,3 +36,7 @@ Feature: User should be able to ADD food to the cache
     And the following food should be committed to db
       | description | food_type | image_url       | name   | price |
       | Wine        | 0         | https:foods.com | Merlot | 20.00 |
+
+
+
+

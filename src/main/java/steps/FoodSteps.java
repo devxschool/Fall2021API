@@ -1,5 +1,7 @@
 package steps;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,6 +18,7 @@ import utils.RestHttpRequest;
 import java.util.List;
 
 import static utils.FoodDeliveryEndpoints.*;
+import static utils.ValidateFood.validateFood;
 
 
 public class FoodSteps {
@@ -26,12 +29,14 @@ public class FoodSteps {
 
 
     @Given("^add new food to FoodDelivery with the following fields$")
-    public void add_new_food_to_FoodDelivery_with_the_following_fields(List<Food> requestPayload) {
+    public void add_new_food_to_FoodDelivery_with_the_following_fields(List<Food> requestPayload) throws JsonProcessingException {
         //used for serializing and deserializing
         //serializing -> converting java to json string
        Food foodFromDataTable =  requestPayload.get(0);
-       String json = gson.toJson(foodFromDataTable);
+        ObjectMapper objectMapper = new ObjectMapper();
+       String json = objectMapper.writeValueAsString(foodFromDataTable);
 
+       System.out.println(json);
        response = RestHttpRequest.requestSpecification
                .body(json)
                .when()
@@ -52,20 +57,15 @@ public class FoodSteps {
         String responsePayload = response.getBody().asPrettyString();
         AddNewFoodToCacheResponseBody actualResponseBody
                 = gson.fromJson(responsePayload, AddNewFoodToCacheResponseBody.class);
-        Assert.assertEquals("Unexpected number of food created",1,actualResponseBody.getFoodCached().size());
-        Assert.assertEquals("Create food description invalid",expectedResponsePayload.get(0).getDescription(),
-                 actualResponseBody.getFoodCached().get(0).getDescription());
-        Assert.assertEquals("Create food image url invalid", expectedResponsePayload.get(0).getImageUrl(), actualResponseBody.getFoodCached().get(0).getImageUrl());
-        Assert.assertEquals("Create food price invalid", expectedResponsePayload.get(0).getPrice(), actualResponseBody.getFoodCached().get(0).getPrice(),0.0);
-        Assert.assertEquals("Create food name invalid", expectedResponsePayload.get(0).getName(), actualResponseBody.getFoodCached().get(0).getName());
-        Assert.assertEquals("Create food foodtype invalid",expectedResponsePayload.get(0).getFoodType(), actualResponseBody.getFoodCached().get(0).getFoodType());
+
+        validateFood(expectedResponsePayload, actualResponseBody.getFoodCached());
     }
 
 
     @Then("^verify response error message \"([^\"]*)\"$")
     public void verifyResponseErrorMessage(String expectedErrorMessage) {
         String actualJson = response.getBody().asPrettyString();
-        ResponseErrorMessageBody actualResponse = gson.fromJson(actualJson, ResponseErrorMessageBody.class);
+        AddNewFoodToCacheResponseBody actualResponse = gson.fromJson(actualJson, AddNewFoodToCacheResponseBody.class);
         Assert.assertEquals("Create food with missing field error message mismatch",
                 expectedErrorMessage, actualResponse.getErrorMessage());
     }

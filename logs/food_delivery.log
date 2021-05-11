@@ -75,3 +75,38 @@
 21:31:47.025 [SpringContextShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 21:31:47.031 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 21:31:47.043 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+19:30:45.062 [main] INFO  com.devxschool.food_delivery.FoodDeliveryApplication - Starting FoodDeliveryApplication v3.2.1 on Askars-MacBook-Pro-2.local with PID 18500 (/Users/askarmusakunov/Desktop/FoodDelivery/food_delivery-3.2.1.jar started by askarmusakunov in /Users/askarmusakunov/Documents/SDET/Java/Fall2021API)
+19:30:45.086 [main] INFO  com.devxschool.food_delivery.FoodDeliveryApplication - No active profile set, falling back to default profiles: default
+19:30:47.711 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:30:47.922 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 185ms. Found 4 JPA repository interfaces.
+19:30:49.340 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+19:30:49.369 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+19:30:49.377 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+19:30:49.384 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.34]
+19:30:49.556 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:30:49.556 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4052 ms
+19:30:50.398 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:30:51.116 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.15.Final
+19:30:51.618 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+19:30:52.101 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19:30:53.250 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19:30:53.367 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19:31:05.906 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:31:05.937 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:31:07.072 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19:31:09.172 [main] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@780ec4a5, org.springframework.security.web.context.SecurityContextPersistenceFilter@4da855dd, org.springframework.security.web.header.HeaderWriterFilter@6de54b40, org.springframework.security.web.authentication.logout.LogoutFilter@3ec11999, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3f093abe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2187fff7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4de025bf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e24ddd0, org.springframework.security.web.session.SessionManagementFilter@388ffbc2, org.springframework.security.web.access.ExceptionTranslationFilter@7e70bd39, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3574e198]
+19:31:09.218 [main] INFO  springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+19:31:09.453 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+19:31:11.742 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper - Context refreshed
+19:31:11.821 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+19:31:11.994 [main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner - Scanning for api listing references
+19:31:12.365 [main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator - Generating unique operation named: listFoodsUsingGET_1
+19:31:12.415 [main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator - Generating unique operation named: addFoodToCacheUsingPOST_1
+19:31:12.423 [main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator - Generating unique operation named: listFoodsUsingGET_2
+19:31:12.477 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+19:31:12.524 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+19:31:12.526 [main] INFO  com.devxschool.food_delivery.FoodDeliveryApplication - Started FoodDeliveryApplication in 28.215 seconds (JVM running for 30.831)
+19:31:24.643 [SpringContextShutdownHook] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+19:31:24.647 [SpringContextShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:31:24.649 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+19:31:24.657 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

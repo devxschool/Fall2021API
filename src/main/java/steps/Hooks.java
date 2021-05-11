@@ -14,7 +14,7 @@ import static utils.FoodDeliveryEndpoints.CLEAR_CACHE;
 public class Hooks {
 
 
-    @Before(order = 0)
+    //@Before(order = 0)
     public void startUpTheApp() {
         AppSession appSession = new LocalSession();
         String result = appSession.sendCommand("java -jar -Dspring.datasource.url=jdbc:mysql://3.131.35.165:3306/food_delivery_askar /Users/askarmusakunov/Desktop/FoodDelivery/food_delivery-3.2.1.jar &");

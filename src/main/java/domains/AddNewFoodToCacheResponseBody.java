@@ -8,4 +8,5 @@ import java.util.List;
 @Data
 public class AddNewFoodToCacheResponseBody {
     private List<Food> foodCached = new ArrayList<>();
+    private String errorMessage;
 }
