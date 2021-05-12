@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SSHSession implements AppSession {
+
+
+
     private Session session;
     private static final String HOST_NAME = "3.20.225.112";
     private static final String USER = "qa";
@@ -13,7 +16,7 @@ public class SSHSession implements AppSession {
         JSch jsch = new JSch();
         try {
             session = jsch.getSession(USER, HOST_NAME, 22);
-            String privateKey = "/Users/giabakubat/Documents/DevX/devXLinux.pem";
+            String privateKey = "/Users/askarmusakunov/Documents/SDET/Java/Fall2021API/src/main/resources/certs/devXLinux.pem";
             jsch.addIdentity(privateKey);
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
