@@ -8,7 +8,7 @@ import io.restassured.specification.RequestSpecification;
 public class RestAssuredDemo {
 
     public static void main(String[] args) {
-
+            
         String url = "http://3.20.225.112:8082/food/cache/add";
 
         String body = "{\n" +

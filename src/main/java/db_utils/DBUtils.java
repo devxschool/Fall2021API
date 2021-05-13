@@ -1,12 +1,18 @@
 package db_utils;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import runners.RegressionRunner;
 import utils.ConfigReader;
 
 import java.sql.*;
 
 public class DBUtils {
+
+    private static final Logger LOGGER = LogManager.getLogger(DBUtils.class);
+
     private static Connection connection;
     private static Statement statement;
     private static QueryRunner queryRunner = new QueryRunner();
@@ -17,7 +23,9 @@ public class DBUtils {
         String host = ConfigReader.getPropertiesValue("food.delivery.db.host");
         String port = ConfigReader.getPropertiesValue("food.delivery.db.port.number");
         String username = ConfigReader.getPropertiesValue("food.delivery.db.username");
-        String password = ConfigReader.getPropertiesValue("food.delivery.db.password");
+        String password = System.getProperty("db.password");
+        LOGGER.info("DB password: " + password);
+//        String password = ConfigReader.getPropertiesValue("food.delivery.db.password");
         return "jdbc:mysql://"+host+":"+port+"/{DB}?user="+username+"&password="+password;
 
     }

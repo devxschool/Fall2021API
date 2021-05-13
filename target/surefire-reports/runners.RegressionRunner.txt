@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: runners.RegressionRunner
+-------------------------------------------------------------------------------
+Tests run: 18, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 4.764 s <<< FAILURE! - in runners.RegressionRunner
+And the following food should be committed to db(Scenario: User commits the food in cache)  Time elapsed: 0.003 s  <<< FAILURE!
+java.lang.AssertionError: Invalid number of DB entries expected:<1> but was:<0>
+
+Scenario: User commits the food in cache  Time elapsed: 0.004 s  <<< FAILURE!
+java.lang.AssertionError: Invalid number of DB entries expected:<1> but was:<0>
+

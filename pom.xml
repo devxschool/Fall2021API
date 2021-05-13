@@ -86,6 +86,82 @@
             <version>2.10.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+
     </dependencies>
+
+
+
+    <build>
+        <!-- plugins are libraries similar to dependencies -->
+        <!-- difference is dependencies are used by programmers to code by using existing functionalities coming from outside
+        libraries -->
+        <!-- plugins though dont require extra coding these are features that get executed and performed automatically as part
+        of project building -->
+        <plugins>
+            <!-- sure-fire plugin is used to specify which tests
+            should be run as part of test(goal) -->
+            <!-- by defaul maven uses surefire plugin to execute tests.
+            Test classes that have names end with Test -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <testSourceDirectory>${basedir}/src/main</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+
+                    <!-- which tests do you want to include in the surefire plugin run in test phase-->
+                    <includes>
+                        <!-- list all Junit/Or TestNG runner classesrunners/RegressionRunner.java -->
+                        <include>**/RegressionRunner.java</include>
+                    </includes>
+                    <!-- doesnt make the build fail bc of test failures -->
+                    <testFailureIgnore>true</testFailureIgnore>
+
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- pie chart nice cucumber report -->
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>2.8.0</version>
+                <!-- how this plugin should be executed -->
+                <executions>
+                    <execution>
+                        <id>AnyID</id>
+                        <!-- which maven phase this plugin should be executed -->
+                        <phase>verify</phase>
+                        <!-- this plugin specific goals -->
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <!-- here give configuration for the report like name, where
+                              the plugin should find cucumber.json and where the final nice report
+                              should be created(generated)? -->
+                        <configuration>
+                            <!-- what ever we put here will appear in the report title -->
+                            <projectName>Amazon Alexa ${project.version}</projectName>
+                            <!-- where the nice report should be generated in? -->
+                            <!-- from pom file project build directory is target folder -->
+                            <outputDirectory>${project.build.directory}/fall2020CucumberReport</outputDirectory>
+                            <!-- which cucumber junit statistics from runner class should I use? -->
+                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

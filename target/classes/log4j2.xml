@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This xml file is needed by log4j2 library -->
+<!-- log4js library looks for this file when you start the program -->
+<!-- this file has all custom configuration of logging for this application -->
+
+<Configuration status="INFO">
+
+    <!-- Appenders(message writer types) are types of logging -->
+    <!-- There are print out in console appender -->
+    <!-- you can choose to write all of the logs to a file -->
+    <Appenders>
+        <!--if you want your logs to go to console use console appender -->
+        <Console name="ABC" target="SYSTEM_OUT">
+            <!-- I want the logs to be printed out in this format -->
+            <!-- start with the current time -->
+            <PatternLayout pattern = "[%level] %d{HH:mm:ss.SSS} - %msg%n"/>
+        </Console>
+
+<!--        <File name="DevXSchool" fileName = "logs/meetup_${date:yyyy-MM-dd}.log" append = "true">-->
+<!--            <PatternLayout pattern = "[%level] %d{HH:mm:ss.SSS} - %msg - {%c}%l%n"/>-->
+<!--        </File>-->
+    </Appenders>
+
+
+    <!-- define logger here -->
+    <Loggers>
+        <Root level="Debug">
+            <AppenderRef ref="ABC"/>
+<!--            <AppenderRef ref="DevXSchool"/>-->
+        </Root>
+    </Loggers>
+</Configuration>

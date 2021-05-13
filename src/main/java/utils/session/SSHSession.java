@@ -1,6 +1,10 @@
 package utils.session;
 
 import com.jcraft.jsch.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import utils.ConfigReader;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,29 +12,37 @@ import java.util.List;
 public class SSHSession implements AppSession {
 
 
+    private static final Logger LOGGER = LogManager.getLogger(SSHSession.class);
 
     private Session session;
-    private static final String HOST_NAME = "3.20.225.112";
-    private static final String USER = "qa";
+    private static final String HOST_NAME = ConfigReader.getPropertiesValue("food.delivery.host");
+    private static final String USER = ConfigReader.getPropertiesValue("food.delivery.qa.host.username");
+
+
     private boolean establishConnection() {
+        LOGGER.info("Establishing connection with qa server");
         JSch jsch = new JSch();
         try {
             session = jsch.getSession(USER, HOST_NAME, 22);
-            String privateKey = "/Users/askarmusakunov/Documents/SDET/Java/Fall2021API/src/main/resources/certs/devXLinux.pem";
+            String privateKey = ConfigReader.getPropertiesValue("food.delivery.qa.host.certificate.directory");
             jsch.addIdentity(privateKey);
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
             if (session.isConnected()) {
+                LOGGER.info("Jsch Connection successfully established");
                 return true;
             }
         } catch (JSchException e) {
+            LOGGER.info("Jsch Connection failed " + e.getMessage());
             e.printStackTrace();
         }
         return false;
     }
+
     public void disconnectSession() {
         session.disconnect();
     }
+
     @Override
     public String sendCommand(String command) {
         while (!establishConnection()) {
@@ -41,6 +53,7 @@ public class SSHSession implements AppSession {
         String line;
         try {
             channel = session.openChannel("exec");
+            LOGGER.info("Sending startup command");
             ((ChannelExec) channel).setCommand(command);
             ((ChannelExec) channel).setErrStream(System.err);
             InputStream input = channel.getInputStream();
@@ -53,13 +66,16 @@ public class SSHSession implements AppSession {
             bufferedReader.close();
             inputReader.close();
             channel.disconnect();
+            LOGGER.info("Finshed startup command");
         } catch (JSchException | IOException e) {
             e.printStackTrace();
         }
         return result;
     }
+
     @Override
     public boolean isAppRunning(String appName) {
+        LOGGER.info("Checking if app is running");
         while (!establishConnection()) {
             establishConnection();
         }
@@ -67,13 +83,13 @@ public class SSHSession implements AppSession {
         boolean isRunning = false;
         try {
             channel = session.openChannel("exec");
-            ((ChannelExec) channel).setCommand("pgrep -i " + appName);
+            ((ChannelExec) channel).setCommand("ps -ef | grep " + appName);
             ((ChannelExec) channel).setErrStream(System.err);
             InputStream input = channel.getInputStream();
             channel.connect();
             InputStreamReader inputReader = new InputStreamReader(input);
             BufferedReader bufferedReader = new BufferedReader(inputReader);
-            while (bufferedReader.readLine() != null) {
+           if(bufferedReader.lines().count() > 2) {
                 isRunning = true;
             }
             bufferedReader.close();
@@ -84,6 +100,7 @@ public class SSHSession implements AppSession {
         }
         return isRunning;
     }
+
     @Override
     public boolean startJavaApp(String appName) {
         while (!establishConnection()) {
@@ -105,6 +122,7 @@ public class SSHSession implements AppSession {
         }
         return isRunning;
     }
+
     @Override
     public boolean stopJavaApp(String appName) {
         Channel channel = null;
@@ -133,6 +151,7 @@ public class SSHSession implements AppSession {
         }
         return hasStopped;
     }
+
     //Helper Methods
     private String findAnAppDirectory(String appName) {
         while (!establishConnection()) {
@@ -165,6 +184,7 @@ public class SSHSession implements AppSession {
         }
         return directory;
     }
+
     public boolean checkJavaApp(String appName) {
         Channel channel = null;
         boolean isRunning = false;
@@ -191,6 +211,7 @@ public class SSHSession implements AppSession {
         }
         return isRunning;
     }
+
     private List idFinder(String appName) {
         Channel channel;
         String line;
@@ -220,6 +241,7 @@ public class SSHSession implements AppSession {
         }
         return ids;
     }
+
     public void sendFile() {
         Channel channel;
         try {
@@ -231,6 +253,7 @@ public class SSHSession implements AppSession {
             e.printStackTrace();
         }
     }
+
     private void whereAmI() {
         while (!establishConnection()) {
             establishConnection();
